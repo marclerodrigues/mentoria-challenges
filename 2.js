@@ -11,6 +11,7 @@
 const readlineSync = require('readline-sync');
 
 let run = true;
+let numbers = [];
 
 while(run) {
   const input = readlineSync.question('Digite o seu número: ');
@@ -20,6 +21,12 @@ while(run) {
   } else {
     const number = Number(input);
 
-    console.log(number*number);
+    numbers.push(number);
   }
 }
+
+const printNumber = (number) => console.log(number*number);
+
+numbers.forEach(printNumber);
+// Versão Resumida de:
+// number.forEach((number) => printNumber(number));
