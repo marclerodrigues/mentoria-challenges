@@ -1,0 +1,19 @@
+{
+  "name": "mentoria-challenges",
+  "version": "1.0.0",
+  "description": "Todos os desafios feitos na mentoria.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marclerodrigues/mentoria-challenges.git"
+  },
+  "author": "Marcle Rodrigues",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/marclerodrigues/mentoria-challenges/issues"
+  },
+  "homepage": "https://github.com/marclerodrigues/mentoria-challenges#readme"
+}
