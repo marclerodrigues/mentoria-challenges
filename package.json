@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/marclerodrigues/mentoria-challenges/issues"
   },
-  "homepage": "https://github.com/marclerodrigues/mentoria-challenges#readme"
+  "homepage": "https://github.com/marclerodrigues/mentoria-challenges#readme",
+  "dependencies": {
+    "readline-sync": "^1.4.10"
+  }
 }
