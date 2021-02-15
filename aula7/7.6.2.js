@@ -11,7 +11,6 @@ fs.createReadStream(filePath)
     rows.push(row);
   })
   .on('end', () => {
-    console.log('Finished reading file.');
     const datesExercises = rows
       .filter((row) => row["name"] === "Marcle")
       .map((row) => row["date"]);
