@@ -17,7 +17,7 @@
 
 const dayInMilliseconds = 24 * 60 * 60 * 1000;
 const currentDate = new Date();
-const startDate = new Date(2017, 1, 1);
+const startDate = new Date(2017, 0, 1);
 const difference = currentDate.getTime() - startDate.getTime();
 const differenceInDays = Math.floor(
   difference / dayInMilliseconds
