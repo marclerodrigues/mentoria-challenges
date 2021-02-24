@@ -194,3 +194,121 @@ const print3  = function prt(n) {
 
   arguments.callee(n - 1);
 };
+
+// Objeto de Argumento
+
+function multiply(a, b) {
+  console.log(arguments['0']);
+  console.log(arguments['1']);
+
+  return a * b;
+}
+
+function concat(separador) {
+  let result = '';
+
+  for (let i = 1; i < arguments.length; i++) {
+    result += arguments[i] + separador;
+  }
+
+  return result;
+}
+
+concat(', ', 'Marcle', 'João', 'Maria');
+
+// Parametro Padrão
+
+// Verificação Manual do Valor Padrão
+function multiply(a, b) {
+  if (typeof b === 'undefined') {
+    b = 1;
+  }
+
+  return a * b;
+}
+
+
+function multiply(a, b = 1) {
+  return a * b;
+}
+
+// Parametro rest
+
+function multiply(multiplicador, ...args) {
+  return args.map(x => multiplicador * x);
+}
+
+const a = multiply(2, 1, 2, 3);
+
+console.log(a);
+
+// Arrow Functions ou Funções de Seta
+
+const square = (x) => x * x
+
+map((x) => x * x, [])
+
+const multiplyByTwo = (n) => {
+  this.name = 'Marcle';
+
+  const multiply = (a, b) => {
+    console.log(this)
+    const self = function(n) {
+      console.log(this)
+      return n;
+    }
+
+    self(a);
+
+    return a * b;
+  }
+
+  return multiply(2, n);
+}
+
+const multiply = (x) => (x * x);
+const multiply = (x) => {
+  return { [x]: x };
+};
+
+// Não funciona porque uma nova função rouba o contexto (this).
+function Pessoa() {
+  this.idade = 0;
+
+  setInterval(function crescer() {
+    this.idade++
+    console.log(this.idade)
+  }, 1000);
+}
+
+var p = new Pessoa();
+
+// Funciona usando Hack de salvar o contexto em uma variavel
+function Pessoa() {
+  var self = this;
+
+  self.idade = 0;
+
+  setInterval(function crescer() {
+    self.idade++
+    console.log(self.idade)
+  }, 1000);
+}
+
+var p = new Pessoa();
+
+// Funciona com Arrow functions porque elas não tem o próprio contexto
+function Pessoa() {
+  this.idade = 0;
+  const oneSecond = 1000;
+
+  const incrementAge = () => {
+    this.idade++
+    console.log(this.idade)
+    console.log(this);
+  }
+
+  setInterval(incrementAge, oneSecond);
+}
+
+var p = new Pessoa();
