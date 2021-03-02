@@ -58,3 +58,17 @@ Graph.prototype = {
 }
 
 const g = new Graph();
+
+// Busca todas as propriedades definidas no prototype
+
+function getAllProtoProps(obj) {
+  const protoProps = [];
+
+  for(let p in obj) {
+    if (!obj.hasOwnProperty(p)) {
+      protoProps.push(p);
+    }
+  }
+
+  return protoProps;
+}
