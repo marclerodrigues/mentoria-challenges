@@ -30,3 +30,5 @@ class Stack {
     return this._items[this._items.length - 1]
   }
 }
+
+module.exports = Stack;
