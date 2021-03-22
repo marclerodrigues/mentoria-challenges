@@ -42,3 +42,5 @@ class Stack {
     return this._items[this._count - 1];
   }
 }
+
+module.exports = Stack
