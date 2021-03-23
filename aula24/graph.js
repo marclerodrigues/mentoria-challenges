@@ -1,6 +1,8 @@
+const Queue = require('../aula20/queue.js');
+
 class Graph {
-  constructor(numberOfVertices) {
-    this.numberOfVertices = numberOfVertices
+  constructor(direction = 'undirected') {
+    this.direction = direction
     this.adjacencyList = new Map();
   }
 
@@ -22,12 +24,66 @@ class Graph {
 
   addEdge(source, destination) {
     this.adjacencyList.get(source).add(destination)
-    this.adjacencyList.get(destination).add(source)
+
+    if (this.direction === 'undirected') {
+      this.adjacencyList.get(destination).add(source)
+    }
   }
 
   removeEdge(source, destination) {
     this.adjacencyList.get(source).delete(destination)
-    this.adjacencyList.get(destination).delete(source)
+
+    if (this.direction === 'undirected') {
+      this.adjacencyList.get(destination).delete(source)
+    }
+  }
+
+  breadthFirstSearch(startingNode) {
+    let visited = new Map();
+    let q = new Queue();
+
+    visited.set(startingNode, true)
+
+    q.enqueue(startingNode)
+
+    while(!q.isEmpty()) {
+      const element = q.dequeue()
+
+      const adjacencyListForCurrentVertex = this.adjacencyList.get(element)
+
+      adjacencyListForCurrentVertex.forEach((neighbour) => {
+        if (!visited.get(neighbour)) {
+          visited.set(neighbour, true)
+          q.enqueue(neighbour)
+        }
+      })
+    }
+
+    console.log(visited.keys())
+
+    return visited.keys();
+  }
+
+  depthFirstSearch(startingNode) {
+    let visited = new Map()
+
+    this.processAdjacentVertices(startingNode, visited)
+
+    console.log(visited.keys())
+
+    return visited.keys();
+  }
+
+  processAdjacentVertices(startingNode, visited) {
+    visited.set(startingNode, true)
+
+    const neighbours = this.adjacencyList.get(startingNode)
+
+    neighbours.forEach((neighbour) => {
+      if (!visited.get(neighbour)) {
+        this.processAdjacentVertices(neighbour, visited)
+      }
+    })
   }
 
   print() {
@@ -48,21 +104,19 @@ class Graph {
 }
 
 module.exports = Graph
+//
+// const graph = new Graph()
+// const vertices = ['a', 'b', 'c', 'd', 'e', 'f']
+//
+// vertices.forEach((v) => graph.addVertex(v))
+//
+// graph.addEdge('a', 'b')
+// graph.addEdge('a', 'c')
+// graph.addEdge('a', 'd')
+// graph.addEdge('b', 'e')
+// graph.addEdge('c', 'f')
+//
+// graph.print()
 
-const graph = new Graph()
-
-graph.addVertex('a')
-graph.addVertex('b')
-graph.addVertex('c')
-graph.addVertex('d')
-
-graph.addEdge('a', 'a')
-graph.addEdge('a', 'b')
-graph.addEdge('b', 'c')
-graph.addEdge('c', 'd')
-graph.addEdge('d', 'b')
-graph.addEdge('d', 'c')
-
-graph.removeEdge('a', 'b')
-
-graph.print()
+// graph.breadthFirstSearch('a')
+// graph.depthFirstSearch('a')
