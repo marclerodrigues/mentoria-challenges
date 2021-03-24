@@ -23,11 +23,13 @@ lines.forEach((line) => {
     graph.addVertex(containerBag)
 
     groups.forEach((contained) => {
-      const bag = contained.split(" ").splice(1,2).join(" ")
+      const spplited = contained.split(" ")
+      const weight = parseInt(spplited[0]);
+      const bag = spplited.splice(1,2).join(" ")
 
       graph.addVertex(bag)
 
-      graph.addEdge(containerBag, bag)
+      graph.addEdge(containerBag, bag, weight)
     })
   }
 })
@@ -45,7 +47,22 @@ const findConnections = (node, nodes) => {
   return connected;
 }
 
+const sumOfBags = (bag, graph) => {
+  // Formula: weight + weight * totalOfBags
+  const nodesToSearch = graph.adjacencyList.get(bag)
+  let total = 0
+
+  nodesToSearch.forEach((weight, node) => {
+    total += weight + weight * sumOfBags(node, graph)
+  })
+
+  return total
+}
+
 const connections = findConnections('shiny gold', graph.adjacencyList)
+const totalBags = sumOfBags('shiny gold', graph)
 
-console.log(connections.size)
-
+console.log(`
+Part 1: ${connections.size}
+Part 2: ${totalBags}
+`)

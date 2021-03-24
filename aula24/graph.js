@@ -8,11 +8,12 @@ class Graph {
 
   addVertex(value) {
     if (!this.adjacencyList.has(value)) {
-      this.adjacencyList.set(value, new Set([]))
+      this.adjacencyList.set(value, new Map())
     }
   }
 
   removeVertex(value) {
+    // Atualizar essa função para trabalhar com pesos
     this.adjacencyList.forEach((list, node) => {
       if (list.has(value)) {
         list.delete(value)
@@ -22,15 +23,16 @@ class Graph {
     this.adjacencyList.delete(value)
   }
 
-  addEdge(source, destination) {
-    this.adjacencyList.get(source).add(destination)
+  addEdge(source, destination, weight = 1) {
+    this.adjacencyList.get(source).set(destination, weight)
 
     if (this.direction === 'undirected') {
-      this.adjacencyList.get(destination).add(source)
+      this.adjacencyList.get(destination).set(source, weight)
     }
   }
 
   removeEdge(source, destination) {
+    // Atualizar essa função para trabalhar com pesos
     this.adjacencyList.get(source).delete(destination)
 
     if (this.direction === 'undirected') {
@@ -51,7 +53,7 @@ class Graph {
 
       const adjacencyListForCurrentVertex = this.adjacencyList.get(element)
 
-      adjacencyListForCurrentVertex.forEach((neighbour) => {
+      adjacencyListForCurrentVertex.forEach((_weight, neighbour) => {
         if (!visited.get(neighbour)) {
           visited.set(neighbour, true)
           q.enqueue(neighbour)
@@ -79,7 +81,7 @@ class Graph {
 
     const neighbours = this.adjacencyList.get(startingNode)
 
-    neighbours.forEach((neighbour) => {
+    neighbours.forEach((_weight, neighbour) => {
       if (!visited.get(neighbour)) {
         this.processAdjacentVertices(neighbour, visited)
       }
@@ -104,19 +106,19 @@ class Graph {
 }
 
 module.exports = Graph
-//
-// const graph = new Graph()
+
+// const graph = new Graph('directed')
 // const vertices = ['a', 'b', 'c', 'd', 'e', 'f']
 //
 // vertices.forEach((v) => graph.addVertex(v))
 //
-// graph.addEdge('a', 'b')
+// graph.addEdge('a', 'b', 2)
 // graph.addEdge('a', 'c')
-// graph.addEdge('a', 'd')
-// graph.addEdge('b', 'e')
-// graph.addEdge('c', 'f')
+// graph.addEdge('a', 'd', 3)
+// graph.addEdge('b', 'e', 5)
+// graph.addEdge('c', 'f', 10)
 //
 // graph.print()
-
+//
 // graph.breadthFirstSearch('a')
 // graph.depthFirstSearch('a')
